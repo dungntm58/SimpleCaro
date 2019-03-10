@@ -10,4 +10,8 @@ import CoreCleanSwiftBase
 
 struct BoardPresenter: CleanInteractor {
     weak var view: BoardView?
+    
+    func presentBoard(size: Int) {
+        view?.showGrid(size: size)
+    }
 }

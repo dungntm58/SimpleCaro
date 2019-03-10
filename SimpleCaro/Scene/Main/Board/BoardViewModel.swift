@@ -6,11 +6,19 @@
 //  Copyright © 2019 Robert. All rights reserved.
 //
 
-import Foundation
+import CoreCleanSwiftBase
+import DifferenceKit
 
 struct BoardViewModel {
-    struct Cell {
-        let playerSign: PlayerSign
-        let position: Coordinate
+    struct Cell: CleanListViewModel, Differentiable {
+        typealias DifferenceIdentifier = Int
+        
+        func isContentEqual(to source: BoardViewModel.Cell) -> Bool {
+            return differenceIdentifier == source.differenceIdentifier
+        }
+        
+        let differenceIdentifier: Int
+        let sign: PlayerSign?
+        let isNew: Bool
     }
 }

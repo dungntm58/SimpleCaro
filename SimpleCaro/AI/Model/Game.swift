@@ -11,18 +11,21 @@ import Foundation
 class GameController {
     private var playerIndex: Int = 0
     
-    let board: Board
-    let backupBoard: Board
-    let players: [Player]
+    private let board: Board
+    private let players: [Player]
+    private let difficulty: Int
+    
+    private(set) var moves: [Move]
     
     var currentPlayer: Player {
         return players[playerIndex]
     }
     
-    init(board: Board, players: [Player]) {
-        self.board = board
-        self.backupBoard = board
+    init(boardSize: Int, difficulty: Int, players: [Player], numberOfContinuousSign: Int = 5) {
+        self.board = Board(size: boardSize, numberOfContinuousSign: numberOfContinuousSign)
+        self.difficulty = difficulty
         self.players = players
+        self.moves = []
     }
     
     func switchNextPlayer() {
@@ -35,6 +38,30 @@ class GameController {
     }
     
     func makePlayerSign(at coorinate: Coordinate) -> Bool {
-        return board.makeMove(Move(player: currentPlayer, coordinate: coorinate))
+        let move = Move(player: currentPlayer, coordinate: coorinate)
+        let success = board.place(sign: move.player.sign, at: coorinate)
+        if success {
+            self.moves.append(move)
+        }
+        return success
+    }
+    
+    func undo() {
+        guard let lastMove = moves.popLast() else { return }
+        board.clearMove(at: lastMove.coordinate)
+    }
+    
+    func start() {
+        
+    }
+    
+    func checkWin(at coordinate: Coordinate) -> Bool {
+        return board.checkWin(at: coordinate)
+    }
+    
+    func printDebug() {
+        #if DEBUG
+        board.printBoard()
+        #endif
     }
 }

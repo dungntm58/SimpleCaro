@@ -12,8 +12,8 @@ enum PlayerSign: String {
     case x = "x"
     case o = "o"
     
-    func toWinString() -> String {
-        return Array(repeating: rawValue, count: 5).joined()
+    func toWinString(size: Int) -> String {
+        return Array(repeating: rawValue, count: size).joined()
     }
 }
 

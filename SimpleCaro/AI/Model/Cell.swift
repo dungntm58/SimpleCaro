@@ -10,15 +10,13 @@ import Foundation
 
 class Cell {
     var sign: PlayerSign?
-    var nearIndex: Int = 0
+    var nearIndex: Int
     
-    init() {}
-    
-    init(other: Cell) {
-        self.sign = other.sign
+    init() {
+        self.nearIndex = 0
     }
     
-    func isPiece() -> Bool {
+    var isPlaced: Bool {
         return sign != nil
     }
 }

@@ -9,5 +9,5 @@
 import Foundation
 
 protocol BoardView: class {
-    
+    func showGrid(size: Int)
 }

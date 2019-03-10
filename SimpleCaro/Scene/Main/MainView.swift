@@ -1,5 +1,5 @@
 //
-//  BoardWorker.swift
+//  MainView.swift
 //  SimpleCaro
 //
 //  Created by Robert Nguyen on 3/10/19.
@@ -8,6 +8,6 @@
 
 import CoreCleanSwiftBase
 
-class BoardWorker: DataWorker {
+protocol MainView: CleanView {
     
 }

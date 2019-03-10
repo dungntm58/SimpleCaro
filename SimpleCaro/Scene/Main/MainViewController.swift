@@ -21,73 +21,55 @@ class MainViewController: BaseCleanViewController {
     @IBOutlet weak var lbSize: UILabel!
     @IBOutlet weak var lbDifficuty: UILabel!
     
+    var interactor: MainInteractor!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        lbSize.text = "\(AppPreferences.instance.get(key: .boardSize))"
-        sizeSlider.value = (Float)(AppPreferences.instance.get(key: .boardSize))
-        lbDifficuty.text = "\(AppPreferences.instance.get(key: .difficulty))"
-        difficutySlider.value = (Float)(AppPreferences.instance.get(key: .difficulty))
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        let boardVC = children.first(where: { $0 is BoardViewController }) as? BoardViewController
+        interactor = MainInteractor(presenter: MainPresenter(view: self), boardPresenter: BoardPresenter(view: boardVC?.collectionView))
+        
+        lbSize.text = "\(interactor.boardSize)"
+        sizeSlider.value = (Float)(interactor.boardSize)
+        lbDifficuty.text = "\(interactor.difficulty)"
+        difficutySlider.value = (Float)(interactor.difficulty)
     }
     
     @IBAction func difficutySliderChanged(_ sender: UISlider) {
         shadowStartView.isHidden = false
         lbDifficuty.text = "\(sender.value)"
-        AppPreferences.instance.set(Int(sender.value), forKey: .difficulty)
+        interactor.boardSize = Int(sender.value)
     }
     
     @IBAction func segModeChanged(_ sender: UISegmentedControl) {
         shadowStartView.isHidden = false
         difficutySlider.isEnabled = sender.selectedSegmentIndex != 2
-//        switch sender.selectedSegmentIndex {
-//        case 0:
-//            player1 = Human(piece: "x")
-//            player2 = Bot(piece: "o")
-//            break
-//        case 1:
-//            player1 = Bot(piece: "x")
-//            player2 = Human(piece: "o")
-//            break
-//        default:
-//            player1 = Human(piece: "x")
-//            player2 = Human(piece: "o")
-//            break
-//        }
     }
     
     @IBAction func onStart(sender: AnyObject) {
-//        let boardVC = BoardViewController(nibName: "BoardViewController", bundle: nil)
-//        boardVC.view.frame = boardView.bounds
-//        boardView.addSubview(boardVC.view)
-//        boardView.bringSubviewToFront(shadowStartView)
-//        self.addChildViewController(boardVC)
-//        game = Game(player1: player1, player2: player2, size: SIZE_BOARD)
-        
         shadowStartView.isHidden = true
-//        if player1 is Bot {
-//            let move = (player1 as! Bot).choseMoveByAI(game.board, lastMove: nil)
-//            //game.board.lastMove = move
-//            game.board.makeMove(player1.piece, row: move.row, col: move.col)
-//            game.isTurnPlayer1 = !game.isTurnPlayer1
-//            boardVC.collectionSquare.reloadData()
-//        }
+        interactor.startGame()
     }
     
     @IBAction func onSizeSliderChanged(_ sender: UISlider) {
         shadowStartView.isHidden = false
         lbSize.text = "\(sender.value)"
-        AppPreferences.instance.set(Int(sender.value), forKey: .boardSize)
+        interactor.boardSize = Int(sender.value)
     }
     
     @IBAction func onShowHeuristic(_ sender: UIButton) {
+        interactor.gameController?.printDebug()
 //        lbHeuristic.text = "\(Bot.heuristic("x", board: game.board)) " + "\(Bot.heuristic("o", board: game.board))"
-//        game.board.printBoard()
     }
 }
 
+extension MainViewController: MainView {
+    
+}
+
+extension MainViewController: ListViewInteractive {
+    func didSelect(at indexPath: IndexPath) {
+        interactor.place(at: Coordinate(row: indexPath.section, column: indexPath.row))
+    }
+}

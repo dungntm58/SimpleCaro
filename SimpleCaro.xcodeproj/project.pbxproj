@@ -18,9 +18,7 @@
 		1328746122342A240061F2DF /* BoardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328746022342A240061F2DF /* BoardCollectionView.swift */; };
 		1328746522342B240061F2DF /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328746322342B240061F2DF /* Square.swift */; };
 		1328746622342B240061F2DF /* Square.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1328746422342B240061F2DF /* Square.xib */; };
-		1328746822342BC30061F2DF /* BoardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328746722342BC30061F2DF /* BoardInteractor.swift */; };
 		1328746A22342C8A0061F2DF /* BoardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328746922342C8A0061F2DF /* BoardPresenter.swift */; };
-		1328746C22342CAB0061F2DF /* BoardWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328746B22342CAB0061F2DF /* BoardWorker.swift */; };
 		1328746E22342F3C0061F2DF /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328746D22342F3C0061F2DF /* BoardView.swift */; };
 		132874702234380D0061F2DF /* BoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328746F2234380D0061F2DF /* BoardViewModel.swift */; };
 		13287475223438CC0061F2DF /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13287474223438CC0061F2DF /* Constant.swift */; };
@@ -32,6 +30,9 @@
 		1328748122343C710061F2DF /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328748022343C710061F2DF /* Move.swift */; };
 		1328748422343D940061F2DF /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328748322343D940061F2DF /* Bot.swift */; };
 		1328748622343DB50061F2DF /* Human.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328748522343DB50061F2DF /* Human.swift */; };
+		13DA076A2234BBF200ABCC17 /* Heuristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DA07692234BBF200ABCC17 /* Heuristic.swift */; };
+		13DA076C2234D83200ABCC17 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DA076B2234D83200ABCC17 /* MainPresenter.swift */; };
+		13DA076E2234D85E00ABCC17 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DA076D2234D85E00ABCC17 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,9 +48,7 @@
 		1328746022342A240061F2DF /* BoardCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCollectionView.swift; sourceTree = "<group>"; };
 		1328746322342B240061F2DF /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		1328746422342B240061F2DF /* Square.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Square.xib; sourceTree = "<group>"; };
-		1328746722342BC30061F2DF /* BoardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardInteractor.swift; sourceTree = "<group>"; };
 		1328746922342C8A0061F2DF /* BoardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPresenter.swift; sourceTree = "<group>"; };
-		1328746B22342CAB0061F2DF /* BoardWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardWorker.swift; sourceTree = "<group>"; };
 		1328746D22342F3C0061F2DF /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		1328746F2234380D0061F2DF /* BoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewModel.swift; sourceTree = "<group>"; };
 		13287474223438CC0061F2DF /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -61,6 +60,9 @@
 		1328748022343C710061F2DF /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		1328748322343D940061F2DF /* Bot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
 		1328748522343DB50061F2DF /* Human.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Human.swift; sourceTree = "<group>"; };
+		13DA07692234BBF200ABCC17 /* Heuristic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heuristic.swift; sourceTree = "<group>"; };
+		13DA076B2234D83200ABCC17 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		13DA076D2234D85E00ABCC17 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		26A1AF8D79283FA4E0B6ADE2 /* Pods-SimpleCaro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleCaro.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleCaro/Pods-SimpleCaro.release.xcconfig"; sourceTree = "<group>"; };
 		DC693DB422D7A3D716BE6A57 /* Pods_SimpleCaro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleCaro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2B2EB4B1A999E0A73704014 /* Pods-SimpleCaro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleCaro.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleCaro/Pods-SimpleCaro.debug.xcconfig"; sourceTree = "<group>"; };
@@ -133,6 +135,8 @@
 			children = (
 				13287449223424950061F2DF /* MainViewController.swift */,
 				1328745E2234282A0061F2DF /* MainInteractor.swift */,
+				13DA076B2234D83200ABCC17 /* MainPresenter.swift */,
+				13DA076D2234D85E00ABCC17 /* MainView.swift */,
 				1328745B223427CB0061F2DF /* Board */,
 			);
 			path = Main;
@@ -144,9 +148,7 @@
 				1328746222342B240061F2DF /* Square */,
 				1328745C223427FD0061F2DF /* BoardViewController.swift */,
 				1328746022342A240061F2DF /* BoardCollectionView.swift */,
-				1328746722342BC30061F2DF /* BoardInteractor.swift */,
 				1328746922342C8A0061F2DF /* BoardPresenter.swift */,
-				1328746B22342CAB0061F2DF /* BoardWorker.swift */,
 				1328746D22342F3C0061F2DF /* BoardView.swift */,
 				1328746F2234380D0061F2DF /* BoardViewModel.swift */,
 			);
@@ -170,6 +172,7 @@
 				1328747C22343B920061F2DF /* Game.swift */,
 				1328747E22343C470061F2DF /* Cell.swift */,
 				1328748022343C710061F2DF /* Move.swift */,
+				13DA07692234BBF200ABCC17 /* Heuristic.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -347,9 +350,7 @@
 				1328747F22343C470061F2DF /* Cell.swift in Sources */,
 				1328748622343DB50061F2DF /* Human.swift in Sources */,
 				1328745D223427FD0061F2DF /* BoardViewController.swift in Sources */,
-				1328746822342BC30061F2DF /* BoardInteractor.swift in Sources */,
 				13287477223439110061F2DF /* Board.swift in Sources */,
-				1328746C22342CAB0061F2DF /* BoardWorker.swift in Sources */,
 				1328748122343C710061F2DF /* Move.swift in Sources */,
 				132874702234380D0061F2DF /* BoardViewModel.swift in Sources */,
 				1328746E22342F3C0061F2DF /* BoardView.swift in Sources */,
@@ -357,6 +358,9 @@
 				1328746A22342C8A0061F2DF /* BoardPresenter.swift in Sources */,
 				1328747B22343ABF0061F2DF /* Player.swift in Sources */,
 				13287475223438CC0061F2DF /* Constant.swift in Sources */,
+				13DA076E2234D85E00ABCC17 /* MainView.swift in Sources */,
+				13DA076C2234D83200ABCC17 /* MainPresenter.swift in Sources */,
+				13DA076A2234BBF200ABCC17 /* Heuristic.swift in Sources */,
 				1328747D22343B920061F2DF /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,22 +15,4 @@ class Square: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
-    func setSymbol(value: String){
-        if value == "x"{
-            image.image = UIImage(named: "icon_x")
-        }
-        else{
-            if value == "o"{
-                image.image = UIImage(named: "icon_o")
-            }
-            else{
-                image.image = nil
-            }
-        }
-    }
-    
-    func isEmpty() -> Bool{
-        return image.image == nil
-    }
 }
