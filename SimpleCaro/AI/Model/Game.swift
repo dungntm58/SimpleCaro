@@ -38,8 +38,8 @@ class GameController {
     }
     
     func makePlayerSign(at coorinate: Coordinate) -> Bool {
-        let move = Move(player: currentPlayer, coordinate: coorinate)
-        let success = board.place(sign: move.player.sign, at: coorinate)
+        let move = Move(sign: currentPlayer.sign, coordinate: coorinate)
+        let success = board.place(sign: move.sign, at: coorinate)
         if success {
             self.moves.append(move)
         }

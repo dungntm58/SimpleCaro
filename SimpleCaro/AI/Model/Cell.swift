@@ -16,6 +16,11 @@ class Cell {
         self.nearIndex = 0
     }
     
+    init(other: Cell) {
+        self.sign = other.sign
+        self.nearIndex = other.nearIndex
+    }
+    
     var isPlaced: Bool {
         return sign != nil
     }

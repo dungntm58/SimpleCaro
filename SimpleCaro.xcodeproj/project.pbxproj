@@ -33,6 +33,7 @@
 		13DA076A2234BBF200ABCC17 /* Heuristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DA07692234BBF200ABCC17 /* Heuristic.swift */; };
 		13DA076C2234D83200ABCC17 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DA076B2234D83200ABCC17 /* MainPresenter.swift */; };
 		13DA076E2234D85E00ABCC17 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DA076D2234D85E00ABCC17 /* MainView.swift */; };
+		13E0313622357A4800D79E54 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E0313522357A4800D79E54 /* Node.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		13DA07692234BBF200ABCC17 /* Heuristic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heuristic.swift; sourceTree = "<group>"; };
 		13DA076B2234D83200ABCC17 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		13DA076D2234D85E00ABCC17 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		13E0313522357A4800D79E54 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		26A1AF8D79283FA4E0B6ADE2 /* Pods-SimpleCaro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleCaro.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleCaro/Pods-SimpleCaro.release.xcconfig"; sourceTree = "<group>"; };
 		DC693DB422D7A3D716BE6A57 /* Pods_SimpleCaro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleCaro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2B2EB4B1A999E0A73704014 /* Pods-SimpleCaro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleCaro.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleCaro/Pods-SimpleCaro.debug.xcconfig"; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				1328747E22343C470061F2DF /* Cell.swift */,
 				1328748022343C710061F2DF /* Move.swift */,
 				13DA07692234BBF200ABCC17 /* Heuristic.swift */,
+				13E0313522357A4800D79E54 /* Node.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				1328746522342B240061F2DF /* Square.swift in Sources */,
 				1328744A223424950061F2DF /* MainViewController.swift in Sources */,
 				1328748422343D940061F2DF /* Bot.swift in Sources */,
+				13E0313622357A4800D79E54 /* Node.swift in Sources */,
 				13287479223439590061F2DF /* AppPreferences.swift in Sources */,
 				1328746122342A240061F2DF /* BoardCollectionView.swift in Sources */,
 				13287448223424950061F2DF /* AppDelegate.swift in Sources */,

@@ -9,7 +9,7 @@
 import Foundation
 
 struct Move {
-    let player: Player
+    let sign: PlayerSign
     let coordinate: Coordinate
 }
 

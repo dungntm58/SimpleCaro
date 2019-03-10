@@ -15,9 +15,21 @@ enum PlayerSign: String {
     func toWinString(size: Int) -> String {
         return Array(repeating: rawValue, count: size).joined()
     }
+    
+    func toOppositeSign() -> PlayerSign {
+        switch self {
+        case .x:
+            return .o
+        case .o:
+            return .x
+        }
+    }
 }
 
 protocol Player {
     var sign: PlayerSign { get }
-    func move(on: Board)
+}
+
+protocol AI {
+    func makeMove(on board: inout Board, from lastMove: Move?) -> Move
 }

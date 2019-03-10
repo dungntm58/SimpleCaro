@@ -10,8 +10,4 @@ import Foundation
 
 struct Human: Player {
     let sign: PlayerSign
-    
-    func move(on: Board) {
-        
-    }
 }
