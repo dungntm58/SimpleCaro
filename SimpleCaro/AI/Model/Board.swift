@@ -11,16 +11,18 @@ import Foundation
 struct Board {
     let size: Int
     private let numberOfContinuousSign: Int
+    private var numberOfPlacedCells: Int
     private var cells: [[Cell]]
     
     init(size: Int, numberOfContinuousSign: Int) {
         self.size = size
         self.numberOfContinuousSign = numberOfContinuousSign
         self.cells = Array(repeating: Array(repeating: Cell(), count: size), count: size)
+        self.numberOfPlacedCells = 0
     }
     
     @discardableResult
-    func place(sign: PlayerSign, at coordinate: Coordinate) -> Bool {
+    mutating func place(sign: PlayerSign, at coordinate: Coordinate) -> Bool {
         let row = coordinate.row
         let col = coordinate.column
         
@@ -28,15 +30,17 @@ struct Board {
             return false
         } else {
             cells[row][col].sign = sign
+            numberOfPlacedCells += 1
             return true
         }
     }
     
-    func clearMove(at coordinate: Coordinate) {
-        cell(at: coordinate).sign = nil
+    mutating func clearMove(at coordinate: Coordinate) {
+        cells[coordinate.row][coordinate.column].sign = nil
+        numberOfPlacedCells -= 1
     }
     
-    func makeNearIndex(at coordinate: Coordinate) {
+    mutating func makeNearIndex(at coordinate: Coordinate) {
         let row = coordinate.row
         let col = coordinate.column
         
@@ -53,26 +57,12 @@ struct Board {
     
     // Function check empty
     func isEmpty() -> Bool {
-        for row in 0..<size {
-            for col in 0..<size {
-                if cells[row][col].isPlaced {
-                    return false
-                }
-            }
-        }
-        return true
+        return numberOfPlacedCells == 0
     }
     
     // Function check full
     func isFull() -> Bool {
-        for row in 0..<size {
-            for col in 0..<size {
-                if !cells[row][col].isPlaced {
-                    return false
-                }
-            }
-        }
-        return true
+        return numberOfPlacedCells == size * size
     }
     
     func checkWin(at coordinate: Coordinate) -> Bool {
@@ -80,10 +70,10 @@ struct Board {
             return false
         }
         
-        return checkVertical(of: sign, at: coordinate) ||
-            checkHorizontal(of: sign, at: coordinate) ||
-            checkCross(of: sign, at: coordinate) ||
-            checkCross2(of: sign, at: coordinate)
+        return checkWinVertical(of: sign, at: coordinate) ||
+            checkWinHorizontal(of: sign, at: coordinate) ||
+            checkWinCross(of: sign, at: coordinate) ||
+            checkWinCross2(of: sign, at: coordinate)
     }
     
     func heuristic(sign: PlayerSign, maxDepth: Int) -> Int {
@@ -96,18 +86,23 @@ struct Board {
             threats = ThreatState.initialState
         }
         //Tao mot mang mat na
-        var maskBoard: [[Int]] = []
-        for row in 0..<size {
-            var rows: [Int] = [Int]()
-            for col in 0..<size {
-                if cells[row][col].isPlaced {
-                    let temInt = (cells[row][col].sign == sign) ? 1 : 2
-                    rows.append(temInt)
-                } else {
-                    rows.append(0)
+        
+        let sizeRange = (0..<size).map { Int($0) }
+        let maskBoard: [[Int]] = sizeRange.map {
+            row in
+            let rowCells = cells[row]
+            return sizeRange.map {
+                col in
+                switch rowCells[col].sign {
+                case .none:
+                    return 0
+                case .some(let value):
+                    if value == sign {
+                        return 1
+                    }
+                    return 2
                 }
             }
-            maskBoard.append(rows)
         }
         
         //Duyet cac hang ngang
@@ -203,7 +198,7 @@ struct Board {
         
         for i in 0..<size {
             for j in 0..<size {
-                if !cells[i][j].isPlaced && cells[i][j].nearIndex == 1 {
+                if cells[i][j].isEmpty && cells[i][j].nearIndex == 1 {
                     nearestMove.append(Move(sign: playerSign, coordinate: Coordinate(row: i, column: j)))
                 }
             }
@@ -233,9 +228,8 @@ private extension Board {
         return cells[coordinate.row][coordinate.column]
     }
     
-    func checkVertical(of sign: PlayerSign, at coordinate: Coordinate) -> Bool {
+    func checkWinVertical(of sign: PlayerSign, at coordinate: Coordinate) -> Bool {
         let row = coordinate.row
-        let col = coordinate.column
         
         for i in -numberOfContinuousSign+1...numberOfContinuousSign-1 {
             if row + i >= 0 && row + i < size {
@@ -245,8 +239,7 @@ private extension Board {
         return true
     }
     
-    func checkHorizontal(of sign: PlayerSign, at coordinate: Coordinate) -> Bool {
-        let row = coordinate.row
+    func checkWinHorizontal(of sign: PlayerSign, at coordinate: Coordinate) -> Bool {
         let col = coordinate.column
         
         for i in -numberOfContinuousSign+1...numberOfContinuousSign-1 {
@@ -257,7 +250,7 @@ private extension Board {
         return true
     }
     
-    func checkCross(of sign: PlayerSign, at coordinate: Coordinate) -> Bool {
+    func checkWinCross(of sign: PlayerSign, at coordinate: Coordinate) -> Bool {
         let row = coordinate.row
         let col = coordinate.column
         
@@ -269,7 +262,7 @@ private extension Board {
         return true
     }
     
-    func checkCross2(of sign: PlayerSign, at coordinate: Coordinate) -> Bool {
+    func checkWinCross2(of sign: PlayerSign, at coordinate: Coordinate) -> Bool {
         let row = coordinate.row
         let col = coordinate.column
         

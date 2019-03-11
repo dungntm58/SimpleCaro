@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Cell {
+struct Cell {
     var sign: PlayerSign?
     var nearIndex: Int
     
@@ -23,5 +23,9 @@ class Cell {
     
     var isPlaced: Bool {
         return sign != nil
+    }
+    
+    var isEmpty: Bool {
+        return sign == nil
     }
 }

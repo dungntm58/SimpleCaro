@@ -11,7 +11,7 @@ import Foundation
 class GameController {
     private var playerIndex: Int = 0
     
-    private let board: Board
+    private var board: Board
     private let players: [Player]
     private let difficulty: Int
     

@@ -8,14 +8,8 @@
 
 import Foundation
 
-class Node {
+struct Node {
     var move: Move
     var score: Int
     var isMax: Bool
-    
-    init(move: Move, score: Int, isMax: Bool) {
-        self.move = move
-        self.score = score
-        self.isMax = isMax
-    }
 }

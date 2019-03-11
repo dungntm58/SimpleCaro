@@ -31,5 +31,5 @@ protocol Player {
 }
 
 protocol AI {
-    func makeMove(on board: inout Board, from lastMove: Move?) -> Move
+    func makeMove(on board: inout Board, from lastMove: Move?, difficulty: Int) throws -> Move
 }
