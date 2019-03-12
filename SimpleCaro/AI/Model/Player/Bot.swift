@@ -10,11 +10,18 @@ import Foundation
 
 struct Bot: Player, AI {
     let sign: PlayerSign
+    let operationQueue: DispatchQueue
     
-    func makeMove(on board: inout Board, from lastMove: Move?, difficulty: Int) throws -> Move {
+    init(sign: PlayerSign, operationQueue: DispatchQueue = DispatchQueue.global()) {
+        self.sign = sign
+        self.operationQueue = operationQueue
+    }
+    
+    func makeMove(on board: Board, from lastMove: Move?, difficulty: Int, completion: @escaping (Move) -> Void) throws {
         guard let lastMove = lastMove else {
             if board.isEmpty() {
-                return Move(sign: sign, coordinate: Coordinate(row: board.size / 2, column: board.size / 2))
+                let move = Move(sign: sign, coordinate: Coordinate(row: board.size / 2, column: board.size / 2))
+                completion(move)
             }
             throw NSError(domain: "AI", code: 999, userInfo: [
                 NSLocalizedDescriptionKey: "Invalid board"
@@ -24,11 +31,10 @@ struct Bot: Player, AI {
         var alpha = Int.min
         var beta = Int.max
         let node = Node(move: lastMove, score: 0, isMax: true)
-        let result = alphaBeta(node: node, board: board, alpha: &alpha, beta: &beta, depth: 0, maxDepth: difficulty)
-        
-        board.place(sign: result.move.sign, at: result.move.coordinate)
-        board.makeNearIndex(at: result.move.coordinate)
-        return result.move
+        operationQueue.async {
+            let result = self.alphaBeta(node: node, board: board, alpha: &alpha, beta: &beta, depth: 0, maxDepth: difficulty)
+            completion(result.move)
+        }
     }
     
     // Alpha beta

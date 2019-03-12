@@ -12,10 +12,6 @@ enum PlayerSign: String {
     case x = "x"
     case o = "o"
     
-    func toWinString(size: Int) -> String {
-        return Array(repeating: rawValue, count: size).joined()
-    }
-    
     func toOppositeSign() -> PlayerSign {
         switch self {
         case .x:
@@ -31,5 +27,6 @@ protocol Player {
 }
 
 protocol AI {
-    func makeMove(on board: inout Board, from lastMove: Move?, difficulty: Int) throws -> Move
+    var operationQueue: DispatchQueue { get }
+    func makeMove(on board: Board, from lastMove: Move?, difficulty: Int, completion: @escaping (Move) -> Void) throws
 }
