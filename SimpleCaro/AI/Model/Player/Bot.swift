@@ -60,23 +60,28 @@ struct Bot: Player, AI {
         let movesArray = board.genMoves(playerSign: node.move.sign.toOppositeSign())
         for move in movesArray {
             var maskBoard = board
-            maskBoard.place(sign: move.sign, at: move.coordinate)
-            maskBoard.makeNearIndex(at: move.coordinate)
-            
-            let oppositeNode = alphaBeta(node: Node(move: move, score: 0, isMax: !node.isMax), board: maskBoard, alpha: &_alpha, beta: &_beta, depth: depth + 1, maxDepth: maxDepth)
-            
-            if node.isMax && oppositeNode.score > resNode.score {
-                resNode.move = move
-                resNode.score = oppositeNode.score
-                _alpha = oppositeNode.score
-            } else if !node.isMax && oppositeNode.score < resNode.score {
-                resNode.move = move
-                resNode.score = oppositeNode.score
-                _beta = oppositeNode.score
+            do {
+                try maskBoard.place(sign: move.sign, at: move.coordinate)
+                maskBoard.makeNearIndex(at: move.coordinate)
+                
+                let oppositeNode = alphaBeta(node: Node(move: move, score: 0, isMax: !node.isMax), board: maskBoard, alpha: &_alpha, beta: &_beta, depth: depth + 1, maxDepth: maxDepth)
+                
+                if node.isMax && oppositeNode.score > resNode.score {
+                    resNode.move = move
+                    resNode.score = oppositeNode.score
+                    _alpha = oppositeNode.score
+                } else if !node.isMax && oppositeNode.score < resNode.score {
+                    resNode.move = move
+                    resNode.score = oppositeNode.score
+                    _beta = oppositeNode.score
+                }
+                
+                if _alpha >= _beta {
+                    return resNode
+                }
             }
-            
-            if _alpha >= _beta {
-                return resNode
+            catch {
+                continue
             }
         }
         return resNode

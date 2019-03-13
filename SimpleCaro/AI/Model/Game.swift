@@ -8,12 +8,31 @@
 
 import Foundation
 
+protocol GameControllerDelegate: class {
+    func moveError(_ error: Error)
+    func moveSuccess(move: Move)
+}
+
+enum GameError: Error {
+    case busy
+    
+    var localizedDescription: String {
+        switch self {
+        case .busy:
+            return "Game is busy now"
+        }
+    }
+}
+
 class GameController {
     private var playerIndex: Int = 0
     
     private var board: Board
     private let players: [Player]
     private let difficulty: Int
+    private(set) var isThinking: Bool
+    
+    weak var delegate: GameControllerDelegate?
     
     private(set) var moves: [Move]
     
@@ -26,6 +45,7 @@ class GameController {
         self.difficulty = difficulty
         self.players = players
         self.moves = []
+        self.isThinking = false
     }
     
     func switchNextPlayer() {
@@ -37,26 +57,70 @@ class GameController {
         }
     }
     
-    func makePlayerSign(at coorinate: Coordinate) -> Bool {
-        let move = Move(sign: currentPlayer.sign, coordinate: coorinate)
-        let success = board.place(sign: move.sign, at: coorinate)
-        if success {
-            self.moves.append(move)
-        }
-        return success
-    }
-    
     func undo() {
         guard let lastMove = moves.popLast() else { return }
         board.clearMove(at: lastMove.coordinate)
     }
     
     func start() {
+        makeMoveAutoIfPossible()
+    }
+    
+    func makeMoveAutoIfPossible() {
+        if let ai = currentPlayer as? AI {
+            do {
+                if isThinking {
+                    delegate?.moveError(GameError.busy)
+                    return
+                }
+                
+                isThinking = true
+                try ai.makeMove(on: board, from: moves.last, difficulty: difficulty) {
+                    move in
+                    do {
+                        try self.board.place(sign: move.sign, at: move.coordinate)
+                        self.isThinking = false
+                        self.delegate?.moveSuccess(move: move)
+                    }
+                    catch {
+                        self.isThinking = false
+                        self.delegate?.moveError(error)
+                    }
+                }
+            }
+            catch {
+                isThinking = false
+                delegate?.moveError(error)
+            }
+        }
+    }
+    
+    func makeMoveManually(at coordinate: Coordinate) {
+        if isThinking {
+            delegate?.moveError(GameError.busy)
+            return
+        }
         
+        isThinking = true
+        let move = Move(sign: currentPlayer.sign, coordinate: coordinate)
+        do {
+            try board.place(sign: move.sign, at: coordinate)
+            moves.append(move)
+            isThinking = false
+            delegate?.moveSuccess(move: move)
+        }
+        catch {
+            isThinking = false
+            delegate?.moveError(error)
+        }
     }
     
     func checkWin(at coordinate: Coordinate) -> Bool {
         return board.checkWin(at: coordinate)
+    }
+    
+    var heuristic: Int {
+        return players.map { $0.sign }.map { board.heuristic(sign: $0, maxDepth: difficulty) }.reduce(0) { $0 + $1 }
     }
     
     func printDebug() {

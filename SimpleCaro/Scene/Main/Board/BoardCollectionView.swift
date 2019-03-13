@@ -56,3 +56,71 @@ class BoardViewSource: BaseCleanCollectionViewSource {
         return Array(cells[index*sectionSize..<(index + 1)*sectionSize])
     }
 }
+
+class BoardViewFlowLayout: UICollectionViewLayout {
+    var contentSize: CGSize = .zero
+    let cellSize: CGFloat
+    var cellAttrsDictionary: [IndexPath: UICollectionViewLayoutAttributes] = [:]
+    
+    init(cellSize: CGFloat) {
+        self.cellSize = cellSize
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.cellSize = Constant.boardCellSize
+        super.init(coder: aDecoder)
+    }
+    
+    override var collectionViewContentSize: CGSize {
+        return self.contentSize
+    }
+    
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        return false
+    }
+    
+    override func prepare() {
+        guard let collectionView = self.collectionView else {
+            return
+        }
+        
+        // Update content size.
+        let contentWidth = max(CGFloat(collectionView.numberOfItems(inSection: 0)) * self.cellSize, collectionView.bounds.width)
+        let contentHeight = max(CGFloat(collectionView.numberOfSections) * self.cellSize, collectionView.bounds.height)
+        
+        self.contentSize = CGSize(width: contentWidth, height: contentHeight)
+        
+        let cellSize = max(collectionView.bounds.width / CGFloat(collectionView.numberOfItems(inSection: 0)), Constant.boardCellSize)
+        
+        //Configure size for earch cell
+        for section in 0..<collectionView.numberOfSections {
+            
+            // Cycle through each item in the section.
+            for item in 0..<collectionView.numberOfItems(inSection: section) {
+                
+                // Build the UICollectionVieLayoutAttributes for the cell.
+                let cellIndex = IndexPath(row: item, section: section)
+                let xPos = CGFloat(item) * cellSize
+                let yPos = CGFloat(section) * cellSize
+                
+                let cellAttributes = UICollectionViewLayoutAttributes(forCellWith: cellIndex)
+                cellAttributes.frame = CGRect(x: xPos, y: yPos, width: cellSize, height: cellSize)
+                
+                // Save the attributes.
+                cellAttrsDictionary[cellIndex] = cellAttributes
+            }
+        }
+    }
+    
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        // Create an array to hold all elements found in our current view.
+        // Check each element to see if it should be returned.
+        // Return list of elements.
+        return cellAttrsDictionary.values.filter { rect.intersects($0.frame) }
+    }
+    
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return cellAttrsDictionary[indexPath]
+    }
+}

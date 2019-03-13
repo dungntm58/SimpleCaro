@@ -6,8 +6,8 @@
 //  Copyright © 2019 Robert. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Constant {
-    
+    static let boardCellSize: CGFloat = 30
 }

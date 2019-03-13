@@ -60,7 +60,13 @@ class MainViewController: BaseCleanViewController {
     
     @IBAction func onShowHeuristic(_ sender: UIButton) {
         interactor.gameController?.printDebug()
-//        lbHeuristic.text = "\(Bot.heuristic("x", board: game.board)) " + "\(Bot.heuristic("o", board: game.board))"
+        lbHeuristic.text = "\(interactor.heuristic)"
+    }
+    
+    override func onError(_ error: Error) {
+        let alertVC = UIAlertController(title: "Caro", message: error.localizedDescription, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alertVC, animated: true)
     }
 }
 

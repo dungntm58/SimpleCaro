@@ -8,6 +8,20 @@
 
 import Foundation
 
+enum PlaceError: Error {
+    case outOfRange
+    case duplicated
+    
+    var localizedDescription: String {
+        switch self {
+        case .outOfRange:
+            return "Out of range"
+        case .duplicated:
+            return "Cell has already been placed"
+        }
+    }
+}
+
 struct Board {
     let size: Int
     private let numberOfContinuousSign: Int
@@ -24,17 +38,18 @@ struct Board {
         self.winString = String(repeating: "0", count: numberOfContinuousSign)
     }
     
-    @discardableResult
-    mutating func place(sign: PlayerSign, at coordinate: Coordinate) -> Bool {
+    mutating func place(sign: PlayerSign, at coordinate: Coordinate) throws {
         let row = coordinate.row
         let col = coordinate.column
         
-        if row >= size || row >= size || cell(at: coordinate).isPlaced {
-            return false
+        if row >= size || col >= size {
+            throw PlaceError.outOfRange
+        }
+        else if cell(at: coordinate).isPlaced {
+            throw PlaceError.duplicated
         } else {
             cells[row][col].sign = sign
             numberOfPlacedCells += 1
-            return true
         }
     }
     

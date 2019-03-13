@@ -57,10 +57,27 @@ class MainInteractor: CleanInteractor {
             players = [Human(sign: .x), Human(sign: .o)]
         }
         gameController = GameController(boardSize: boardSize, difficulty: difficulty, players: players)
+        gameController.delegate = self
         gameController.start()
+        boardPresenter.presentBoard(size: boardSize)
     }
     
     func place(at coordinate: Coordinate) {
-        _ = gameController.makePlayerSign(at: coordinate)
+        gameController.makeMoveManually(at: coordinate)
+    }
+    
+    var heuristic: Int {
+        return gameController.heuristic
+    }
+}
+
+extension MainInteractor: GameControllerDelegate {
+    func moveError(_ error: Error) {
+        presenter.onError(error)
+    }
+    
+    func moveSuccess(move: Move) {
+        gameController.switchNextPlayer()
+        gameController.makeMoveAutoIfPossible()
     }
 }
