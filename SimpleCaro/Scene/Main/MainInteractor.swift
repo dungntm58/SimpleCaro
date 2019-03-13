@@ -84,7 +84,11 @@ extension MainInteractor: GameControllerDelegate {
         gameController.makeMoveAutoIfPossible()
         DispatchQueue.main.async {
             [weak self] in
-            self?.boardPresenter.presentUpdate(at: move.coordinate, sign: move.sign)
+            guard let `self` = self else { return }
+            self.boardPresenter.presentUpdate(at: move.coordinate, sign: move.sign, boardSize: self.boardSize)
+            if let sign = self.gameController.checkWin(at: move.coordinate), let player = self.gameController.player(of: sign) {
+                self.presenter.presentGameOver(player: player)
+            }
         }
     }
 }

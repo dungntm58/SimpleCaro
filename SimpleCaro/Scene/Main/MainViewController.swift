@@ -70,7 +70,17 @@ class MainViewController: BaseCleanViewController {
     }
 }
 
-extension MainViewController: MainView {}
+extension MainViewController: MainView {
+    func showGameOver(msg: String) {
+        let alertVC = UIAlertController(title: "Caro", message: msg, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "New game", style: .default) {
+            _ in
+            self.interactor.startGame()
+        })
+        alertVC.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alertVC, animated: true)
+    }
+}
 
 extension MainViewController: ListViewInteractive {
     func didSelect(at indexPath: IndexPath) {

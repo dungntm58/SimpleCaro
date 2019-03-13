@@ -239,13 +239,13 @@ struct Board {
         }
         print("End")
     }
-}
-
-private extension Board {
+    
     func cell(at coordinate: Coordinate) -> Cell {
         return cells[coordinate.row][coordinate.column]
     }
-    
+}
+
+private extension Board {
     func toMapSign(_ cell: Cell, ofSign sign: PlayerSign) -> String {
         guard let cSign = cell.sign else {
             return " "
@@ -260,7 +260,7 @@ private extension Board {
         let row = coordinate.row
         let colCells = cells[coordinate.column]
         let start = max(row - numberOfContinuousSign + 1, 0)
-        let end = min(row + numberOfContinuousSign - 1, size)
+        let end = min(row + numberOfContinuousSign - 1, size - 1)
         if end - start + 1 < numberOfContinuousSign {
             return false
         }
@@ -275,7 +275,7 @@ private extension Board {
     func checkWinHorizontal(of sign: PlayerSign, at coordinate: Coordinate) -> Bool {
         let col = coordinate.column
         let start = max(col - numberOfContinuousSign + 1, 0)
-        let end = min(col + numberOfContinuousSign - 1, size)
+        let end = min(col + numberOfContinuousSign - 1, size - 1)
         if end - start + 1 < numberOfContinuousSign {
             return false
         }
@@ -292,9 +292,9 @@ private extension Board {
         let col = coordinate.column
         
         let startRow = max(row - numberOfContinuousSign + 1, 0)
-        let endRow = min(row + numberOfContinuousSign - 1, size)
+        let endRow = min(row + numberOfContinuousSign - 1, size - 1)
         let startCol = max(col - numberOfContinuousSign + 1, 0)
-        let endCol = min(col + numberOfContinuousSign - 1, size)
+        let endCol = min(col + numberOfContinuousSign - 1, size - 1)
         
         let start = min(startRow, startCol)
         let end = max(endRow, endCol)
@@ -315,9 +315,9 @@ private extension Board {
         let col = coordinate.column
         
         let startRow = max(row - numberOfContinuousSign + 1, 0)
-        let endRow = min(row + numberOfContinuousSign - 1, size)
+        let endRow = min(row + numberOfContinuousSign - 1, size - 1)
         let startCol = max(col - numberOfContinuousSign + 1, 0)
-        let endCol = min(col + numberOfContinuousSign - 1, size)
+        let endCol = min(col + numberOfContinuousSign - 1, size - 1)
         
         let start = min(startRow, startCol)
         let end = max(endRow, endCol)

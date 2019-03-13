@@ -115,12 +115,20 @@ class GameController {
         }
     }
     
-    func checkWin(at coordinate: Coordinate) -> Bool {
-        return board.checkWin(at: coordinate)
+    func checkWin(at coordinate: Coordinate) -> PlayerSign? {
+        if board.checkWin(at: coordinate) {
+            return board.cell(at: coordinate).sign
+        }
+        
+        return nil
     }
     
     var heuristic: Int {
         return players.map { $0.sign }.map { board.heuristic(sign: $0, maxDepth: difficulty) }.reduce(0) { $0 + $1 }
+    }
+    
+    func player(of sign: PlayerSign) -> Player? {
+        return players.first(where: { $0.sign == sign })
     }
     
     func printDebug() {

@@ -9,5 +9,5 @@
 import CoreCleanSwiftBase
 
 protocol MainView: CleanView {
-    
+    func showGameOver(msg: String)
 }

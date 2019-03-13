@@ -15,6 +15,10 @@ class MainPresenter: CleanPresenter {
         self.view = view
     }
     
+    func presentGameOver(player: Player) {
+        view?.showGameOver(msg: "Player \(type(of: player)) wins")
+    }
+    
     func onError(_ error: Error) {
         self.view?.onError(error)
     }
