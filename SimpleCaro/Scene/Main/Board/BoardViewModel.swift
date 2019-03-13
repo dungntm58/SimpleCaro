@@ -11,13 +11,13 @@ import DifferenceKit
 
 struct BoardViewModel {
     struct Cell: CleanListViewModel, Differentiable {
-        typealias DifferenceIdentifier = Int
+        typealias DifferenceIdentifier = String
         
         func isContentEqual(to source: BoardViewModel.Cell) -> Bool {
             return differenceIdentifier == source.differenceIdentifier
         }
         
-        let differenceIdentifier: Int
+        let differenceIdentifier: String
         let sign: PlayerSign?
         let isNew: Bool
     }

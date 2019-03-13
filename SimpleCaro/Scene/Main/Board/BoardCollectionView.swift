@@ -15,13 +15,12 @@ extension BoardCollectionView: BoardView {
         let mainViewVC = viewController?.parent
         viewSource = BoardViewSource(sectionSize: size, listViewInteractive: mainViewVC as? ListViewInteractive)
         collectionViewLayout = BoardViewFlowLayout(cellSize: Constant.boardCellSize)
-        viewSource?.updateListModel(type: .initial, newItems: (0..<size*size).enumerated().map { BoardViewModel.Cell(differenceIdentifier: $0.element, sign: nil, isNew: false) })
+        viewSource?.updateListModel(type: .initial, newItems: (0..<size*size).map { BoardViewModel.Cell(differenceIdentifier: "\(Int($0))", sign: nil, isNew: false) })
     }
     
     func updateCell(at coordinate: Coordinate, sign: PlayerSign, boardSize: Int) {
         let index = coordinate.row * boardSize + coordinate.column
-        viewSource?.updateListModel(type: .replace(at: index, length: 1), newItems: [BoardViewModel.Cell(differenceIdentifier: index, sign: sign, isNew: false)])
-        reloadData()
+        viewSource?.updateListModel(type: .replace(at: index, length: 1), newItems: [BoardViewModel.Cell(differenceIdentifier: "\(index) \(sign.rawValue)", sign: sign, isNew: false)])
     }
 }
 
