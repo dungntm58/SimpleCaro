@@ -8,15 +8,18 @@
 
 import CoreCleanSwiftBase
 
-class BoardCollectionView: BaseCleanCollectionView {
-    override func createViewSource() -> BaseCleanCollectionView.DataViewSource? {
-        return BoardViewSource(sectionSize: AppPreferences.instance.get(key: .boardSize), listViewInteractive: viewController?.parent as? ListViewInteractive)
-    }
-}
+class BoardCollectionView: BaseCleanCollectionView {}
 
 extension BoardCollectionView: BoardView {
     func showGrid(size: Int) {
-        updateListModel(type: .initial, newItems: (0..<size*size).enumerated().map { BoardViewModel.Cell(differenceIdentifier: $0.element, sign: nil, isNew: false) })
+        viewSource = BoardViewSource(sectionSize: size, listViewInteractive: viewController?.parent as? ListViewInteractive)
+        collectionViewLayout = BoardViewFlowLayout(cellSize: Constant.boardCellSize)
+        viewSource?.updateListModel(type: .initial, newItems: (0..<size*size).enumerated().map { BoardViewModel.Cell(differenceIdentifier: $0.element, sign: nil, isNew: false) })
+    }
+    
+    func updateCell(at coordinate: Coordinate, sign: PlayerSign) {
+        let index = coordinate.row * coordinate.column
+        viewSource?.updateListModel(type: .replace(at: index, length: 1), newItems: [BoardViewModel.Cell(differenceIdentifier: index, sign: sign, isNew: false)])
     }
 }
 

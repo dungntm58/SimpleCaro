@@ -22,7 +22,7 @@ struct AppPreferences {
         userDefault = UserDefaults.standard
         userDefault.register(defaults: [
             Keys.boardSize.rawValue: 30,
-            Keys.difficulty.rawValue: 4
+            Keys.difficulty.rawValue: 1
         ])
     }
     

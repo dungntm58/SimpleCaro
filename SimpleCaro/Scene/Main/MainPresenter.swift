@@ -15,5 +15,7 @@ class MainPresenter: CleanPresenter {
         self.view = view
     }
     
-    func onError(_ error: Error) {}
+    func onError(_ error: Error) {
+        self.view?.onError(error)
+    }
 }

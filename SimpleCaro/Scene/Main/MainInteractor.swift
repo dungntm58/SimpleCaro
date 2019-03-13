@@ -73,11 +73,18 @@ class MainInteractor: CleanInteractor {
 
 extension MainInteractor: GameControllerDelegate {
     func moveError(_ error: Error) {
-        presenter.onError(error)
+        DispatchQueue.main.async {
+            [weak self] in
+            self?.presenter.onError(error)
+        }
     }
     
     func moveSuccess(move: Move) {
         gameController.switchNextPlayer()
         gameController.makeMoveAutoIfPossible()
+        DispatchQueue.main.async {
+            [weak self] in
+            self?.boardPresenter.presentUpdate(at: move.coordinate, sign: move.sign)
+        }
     }
 }

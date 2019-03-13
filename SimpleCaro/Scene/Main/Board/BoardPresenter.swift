@@ -14,4 +14,8 @@ struct BoardPresenter: CleanInteractor {
     func presentBoard(size: Int) {
         view?.showGrid(size: size)
     }
+    
+    func presentUpdate(at coordinate: Coordinate, sign: PlayerSign) {
+        view?.updateCell(at: coordinate, sign: sign)
+    }
 }

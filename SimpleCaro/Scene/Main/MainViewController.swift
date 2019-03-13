@@ -38,7 +38,7 @@ class MainViewController: BaseCleanViewController {
     
     @IBAction func difficutySliderChanged(_ sender: UISlider) {
         shadowStartView.isHidden = false
-        lbDifficuty.text = "\(sender.value)"
+        lbDifficuty.text = "\(Int(sender.value))"
         interactor.boardSize = Int(sender.value)
     }
     
@@ -54,7 +54,7 @@ class MainViewController: BaseCleanViewController {
     
     @IBAction func onSizeSliderChanged(_ sender: UISlider) {
         shadowStartView.isHidden = false
-        lbSize.text = "\(sender.value)"
+        lbSize.text = "\(Int(sender.value))"
         interactor.boardSize = Int(sender.value)
     }
     
@@ -70,9 +70,7 @@ class MainViewController: BaseCleanViewController {
     }
 }
 
-extension MainViewController: MainView {
-    
-}
+extension MainViewController: MainView {}
 
 extension MainViewController: ListViewInteractive {
     func didSelect(at indexPath: IndexPath) {
