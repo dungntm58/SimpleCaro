@@ -49,6 +49,10 @@ class GameController {
     }
     
     func switchNextPlayer() {
+        if isThinking {
+            return
+        }
+        
         if playerIndex < players.count - 1 {
             playerIndex += 1
         }
@@ -67,31 +71,34 @@ class GameController {
     }
     
     func makeMoveAutoIfPossible() {
-        if let ai = currentPlayer as? AI {
-            do {
-                if isThinking {
-                    delegate?.moveError(GameError.busy)
-                    return
+        guard let ai = currentPlayer as? AI else {
+            return
+        }
+        
+        do {
+            if isThinking {
+                delegate?.moveError(GameError.busy)
+                return
+            }
+            
+            isThinking = true
+            try ai.makeMove(on: board, from: moves.last, difficulty: difficulty) {
+                move in
+                do {
+                    try self.board.place(sign: move.sign, at: move.coordinate)
+                    self.moves.append(move)
+                    self.isThinking = false
+                    self.delegate?.moveSuccess(move: move)
                 }
-                
-                isThinking = true
-                try ai.makeMove(on: board, from: moves.last, difficulty: difficulty) {
-                    move in
-                    do {
-                        try self.board.place(sign: move.sign, at: move.coordinate)
-                        self.isThinking = false
-                        self.delegate?.moveSuccess(move: move)
-                    }
-                    catch {
-                        self.isThinking = false
-                        self.delegate?.moveError(error)
-                    }
+                catch {
+                    self.isThinking = false
+                    self.delegate?.moveError(error)
                 }
             }
-            catch {
-                isThinking = false
-                delegate?.moveError(error)
-            }
+        }
+        catch {
+            isThinking = false
+            delegate?.moveError(error)
         }
     }
     

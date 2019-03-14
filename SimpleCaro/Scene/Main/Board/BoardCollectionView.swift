@@ -8,7 +8,9 @@
 
 import CoreCleanSwiftBase
 
-class BoardCollectionView: BaseCleanCollectionView {}
+class BoardCollectionView: BaseCleanCollectionView {
+    private var lastChangedModelIndex: Int?
+}
 
 extension BoardCollectionView: BoardView {
     func showGrid(size: Int) {
@@ -19,8 +21,15 @@ extension BoardCollectionView: BoardView {
     }
     
     func updateCell(at coordinate: Coordinate, sign: PlayerSign, boardSize: Int) {
+        if let lastChangedIndex = lastChangedModelIndex {
+            if let model = viewSource?.models(for: BoardViewModel.Cell.self)?[lastChangedIndex] as? BoardViewModel.Cell {
+                let newModel = BoardViewModel.Cell(differenceIdentifier: "\(lastChangedIndex)", sign: model.sign, isNew: false)
+                viewSource?.updateListModel(type: .replace(at: lastChangedIndex, length: 1), newItems: [newModel])
+            }
+        }
         let index = coordinate.row * boardSize + coordinate.column
-        viewSource?.updateListModel(type: .replace(at: index, length: 1), newItems: [BoardViewModel.Cell(differenceIdentifier: "\(index) \(sign.rawValue)", sign: sign, isNew: false)])
+        lastChangedModelIndex = index
+        viewSource?.updateListModel(type: .replace(at: index, length: 1), newItems: [BoardViewModel.Cell(differenceIdentifier: "\(index)", sign: sign, isNew: true)])
     }
 }
 
@@ -97,11 +106,14 @@ class BoardViewFlowLayout: UICollectionViewLayout {
         
         let cellSize = max(collectionView.bounds.width / CGFloat(collectionView.numberOfItems(inSection: 0)), Constant.boardCellSize)
         
+        let numberOfSections = collectionView.numberOfSections
+        
         //Configure size for earch cell
-        for section in 0..<collectionView.numberOfSections {
+        for section in 0..<numberOfSections {
+            let numberOfItems = collectionView.numberOfItems(inSection: section)
             
             // Cycle through each item in the section.
-            for item in 0..<collectionView.numberOfItems(inSection: section) {
+            for item in 0..<numberOfItems {
                 
                 // Build the UICollectionVieLayoutAttributes for the cell.
                 let cellIndex = IndexPath(row: item, section: section)

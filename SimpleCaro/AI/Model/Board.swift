@@ -49,6 +49,7 @@ struct Board {
             throw PlaceError.duplicated
         } else {
             cells[row][col].sign = sign
+            makeNearIndex(at: coordinate)
             numberOfPlacedCells += 1
         }
     }
@@ -66,7 +67,7 @@ struct Board {
             if row + i < size && row + i >= 0 {
                 for j in -1...1 {
                     if col + j < size && col + j >= 0 {
-                        cells[row + i][col + j].nearIndex = 1
+                        cells[row + i][col + j].nearIndex += 1
                     }
                 }
             }
@@ -232,7 +233,7 @@ struct Board {
                 if let sign = cells[i][j].sign {
                     print(sign.rawValue, terminator: " ")
                 } else {
-                    print(cells[i][j].nearIndex, terminator: " ")
+                    print("-", terminator: " ")
                 }
             }
             print("\n")

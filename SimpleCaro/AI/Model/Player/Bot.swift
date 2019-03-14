@@ -62,7 +62,6 @@ struct Bot: Player, AI {
             var maskBoard = board
             do {
                 try maskBoard.place(sign: move.sign, at: move.coordinate)
-                maskBoard.makeNearIndex(at: move.coordinate)
                 
                 let oppositeNode = alphaBeta(node: Node(move: move, score: 0, isMax: !node.isMax), board: maskBoard, alpha: &_alpha, beta: &_beta, depth: depth + 1, maxDepth: maxDepth)
                 
