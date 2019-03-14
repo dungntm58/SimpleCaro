@@ -49,29 +49,40 @@ struct Board {
             throw PlaceError.duplicated
         } else {
             cells[row][col].sign = sign
-            makeNearIndex(at: coordinate)
+            
+            for i in -1...1 {
+                if row + i < size && row + i >= 0 {
+                    for j in -1...1 {
+                        if col + j < size && col + j >= 0 {
+                            cells[row + i][col + j].nearIndex += 1
+                        }
+                    }
+                }
+            }
+            
             numberOfPlacedCells += 1
         }
     }
     
     mutating func clearMove(at coordinate: Coordinate) {
-        cells[coordinate.row][coordinate.column].sign = nil
-        numberOfPlacedCells -= 1
-    }
-    
-    mutating func makeNearIndex(at coordinate: Coordinate) {
         let row = coordinate.row
         let col = coordinate.column
+        
+        cells[row][col].sign = nil
         
         for i in -1...1 {
             if row + i < size && row + i >= 0 {
                 for j in -1...1 {
                     if col + j < size && col + j >= 0 {
-                        cells[row + i][col + j].nearIndex += 1
+                        if cells[row + i][col + j].nearIndex > 0 {
+                            cells[row + i][col + j].nearIndex -= 1
+                        }
                     }
                 }
             }
         }
+        
+        numberOfPlacedCells -= 1
     }
     
     // Function check empty
