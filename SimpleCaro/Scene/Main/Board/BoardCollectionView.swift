@@ -7,6 +7,7 @@
 //
 
 import CoreCleanSwiftBase
+import DifferenceKit
 
 class BoardCollectionView: BaseCleanCollectionView {
     private var lastChangedModelIndex: Int?
@@ -23,13 +24,13 @@ extension BoardCollectionView: BoardView {
     func updateCell(at coordinate: Coordinate, sign: PlayerSign, boardSize: Int) {
         if let lastChangedIndex = lastChangedModelIndex {
             if let model = viewSource?.models(for: BoardViewModel.Cell.self)?[lastChangedIndex] as? BoardViewModel.Cell {
-                let newModel = BoardViewModel.Cell(differenceIdentifier: "\(lastChangedIndex)", sign: model.sign, isNew: false)
+                let newModel = BoardViewModel.Cell(differenceIdentifier: "\(lastChangedIndex) \(model.sign!.rawValue)", sign: model.sign, isNew: false)
                 viewSource?.updateListModel(type: .replace(at: lastChangedIndex, length: 1), newItems: [newModel])
             }
         }
         let index = coordinate.row * boardSize + coordinate.column
         lastChangedModelIndex = index
-        viewSource?.updateListModel(type: .replace(at: index, length: 1), newItems: [BoardViewModel.Cell(differenceIdentifier: "\(index)", sign: sign, isNew: true)])
+        viewSource?.updateListModel(type: .replace(at: index, length: 1), newItems: [BoardViewModel.Cell(differenceIdentifier: "\(index) \(sign.rawValue) n", sign: sign, isNew: true)])
     }
 }
 
@@ -61,12 +62,12 @@ class BoardViewSource: BaseCleanCollectionViewSource {
         }
     }
     
-    override func objects(in section: SectionModel, at index: Int, onChanged type: ListModelChangeType) -> [CleanListViewModel] {
+    override func objects(in section: SectionModel, at index: Int, onChanged type: ListModelChangeType) -> [AnyDifferentiable] {
         guard let cells = models(for: BoardViewModel.Cell.self) else {
             return []
         }
         
-        return Array(cells[index*sectionSize..<(index + 1)*sectionSize])
+        return Array(cells[index*sectionSize..<(index + 1)*sectionSize]).compactMap { $0.toAnyDifferentiable() }
     }
 }
 
