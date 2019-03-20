@@ -39,7 +39,7 @@ class MainViewController: BaseCleanViewController {
     @IBAction func difficutySliderChanged(_ sender: UISlider) {
         shadowStartView.isHidden = false
         lbDifficuty.text = "\(Int(sender.value))"
-        interactor.boardSize = Int(sender.value)
+        interactor.difficulty = Int(sender.value)
     }
     
     @IBAction func segModeChanged(_ sender: UISegmentedControl) {
