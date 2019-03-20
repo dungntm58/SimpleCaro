@@ -44,7 +44,10 @@ class MainViewController: BaseCleanViewController {
     
     @IBAction func segModeChanged(_ sender: UISegmentedControl) {
         shadowStartView.isHidden = false
-        difficutySlider.isEnabled = sender.selectedSegmentIndex != 2
+        if let options = MainInteractor.GameOptions(rawValue: sender.selectedSegmentIndex) {
+            interactor.options = options
+            difficutySlider.isEnabled = options != .manually
+        }
     }
     
     @IBAction func onStart(sender: AnyObject) {

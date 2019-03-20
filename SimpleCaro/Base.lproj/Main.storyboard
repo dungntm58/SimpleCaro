@@ -152,7 +152,7 @@
                                             <segment title="Người - Người"/>
                                         </segments>
                                         <connections>
-                                            <action selector="segModeChanged:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4rb-Jj-BTY"/>
+                                            <action selector="segModeChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="bvA-Vq-c5A"/>
                                         </connections>
                                     </segmentedControl>
                                 </subviews>
@@ -214,17 +214,17 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="kJy-ew-Ehd" firstAttribute="top" secondItem="qyP-W3-Fjb" secondAttribute="bottom" id="0Gk-m4-eVK"/>
-                            <constraint firstAttribute="trailing" secondItem="qyP-W3-Fjb" secondAttribute="trailing" id="5o6-XB-tIJ"/>
-                            <constraint firstAttribute="trailing" secondItem="kJy-ew-Ehd" secondAttribute="trailing" id="K0e-KC-GH6"/>
-                            <constraint firstAttribute="trailing" secondItem="3JV-1A-Leb" secondAttribute="trailing" id="Lzq-ru-2C3"/>
-                            <constraint firstItem="kJy-ew-Ehd" firstAttribute="leading" secondItem="jUc-H9-Ejh" secondAttribute="leading" id="XLJ-y0-GGD"/>
-                            <constraint firstItem="qyP-W3-Fjb" firstAttribute="leading" secondItem="jUc-H9-Ejh" secondAttribute="leading" id="Y1h-Cf-UCc"/>
+                            <constraint firstItem="mrH-sa-4l6" firstAttribute="trailing" secondItem="qyP-W3-Fjb" secondAttribute="trailing" id="5o6-XB-tIJ"/>
+                            <constraint firstItem="mrH-sa-4l6" firstAttribute="trailing" secondItem="kJy-ew-Ehd" secondAttribute="trailing" id="K0e-KC-GH6"/>
+                            <constraint firstItem="mrH-sa-4l6" firstAttribute="trailing" secondItem="3JV-1A-Leb" secondAttribute="trailing" id="Lzq-ru-2C3"/>
+                            <constraint firstItem="kJy-ew-Ehd" firstAttribute="leading" secondItem="mrH-sa-4l6" secondAttribute="leading" id="XLJ-y0-GGD"/>
+                            <constraint firstItem="qyP-W3-Fjb" firstAttribute="leading" secondItem="mrH-sa-4l6" secondAttribute="leading" id="Y1h-Cf-UCc"/>
                             <constraint firstItem="3JV-1A-Leb" firstAttribute="top" secondItem="kJy-ew-Ehd" secondAttribute="bottom" id="cdT-cB-GCa"/>
-                            <constraint firstItem="3JV-1A-Leb" firstAttribute="leading" secondItem="jUc-H9-Ejh" secondAttribute="leading" id="iGL-yI-TzA"/>
+                            <constraint firstItem="3JV-1A-Leb" firstAttribute="leading" secondItem="mrH-sa-4l6" secondAttribute="leading" id="iGL-yI-TzA"/>
                             <constraint firstAttribute="bottom" secondItem="3JV-1A-Leb" secondAttribute="bottom" id="pKf-fZ-UPM"/>
                             <constraint firstItem="qyP-W3-Fjb" firstAttribute="top" secondItem="jUc-H9-Ejh" secondAttribute="top" id="zJe-yc-srM"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="q90-ef-GhR"/>
+                        <viewLayoutGuide key="safeArea" id="mrH-sa-4l6"/>
                     </view>
                     <connections>
                         <outlet property="boardView" destination="kJy-ew-Ehd" id="vPY-wa-gmk"/>
@@ -264,13 +264,13 @@
                             <constraint firstAttribute="bottom" secondItem="mqK-fD-4UO" secondAttribute="bottom" id="BE1-Ox-bYL"/>
                             <constraint firstItem="mqK-fD-4UO" firstAttribute="top" secondItem="kQc-fz-I2T" secondAttribute="top" id="HhQ-MX-3cE"/>
                             <constraint firstItem="U29-Fs-6Z8" firstAttribute="top" secondItem="kQc-fz-I2T" secondAttribute="top" id="KsP-xO-1rm"/>
-                            <constraint firstItem="U29-Fs-6Z8" firstAttribute="leading" secondItem="kQc-fz-I2T" secondAttribute="leading" id="NJJ-ul-jxA"/>
-                            <constraint firstAttribute="trailing" secondItem="mqK-fD-4UO" secondAttribute="trailing" id="WFH-JT-81F"/>
+                            <constraint firstItem="U29-Fs-6Z8" firstAttribute="leading" secondItem="okm-P9-dP3" secondAttribute="leading" id="NJJ-ul-jxA"/>
+                            <constraint firstItem="okm-P9-dP3" firstAttribute="trailing" secondItem="mqK-fD-4UO" secondAttribute="trailing" id="WFH-JT-81F"/>
                             <constraint firstAttribute="bottom" secondItem="U29-Fs-6Z8" secondAttribute="bottom" id="Yhq-Hp-YYn"/>
-                            <constraint firstAttribute="trailing" secondItem="U29-Fs-6Z8" secondAttribute="trailing" id="pUx-Zw-45k"/>
-                            <constraint firstItem="mqK-fD-4UO" firstAttribute="leading" secondItem="kQc-fz-I2T" secondAttribute="leading" id="vQ4-rt-in7"/>
+                            <constraint firstItem="okm-P9-dP3" firstAttribute="trailing" secondItem="U29-Fs-6Z8" secondAttribute="trailing" id="pUx-Zw-45k"/>
+                            <constraint firstItem="mqK-fD-4UO" firstAttribute="leading" secondItem="okm-P9-dP3" secondAttribute="leading" id="vQ4-rt-in7"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6UL-WH-bb8"/>
+                        <viewLayoutGuide key="safeArea" id="okm-P9-dP3"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="mqK-fD-4UO" id="kwU-aY-dKI"/>

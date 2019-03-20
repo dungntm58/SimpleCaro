@@ -281,6 +281,7 @@ private extension Board {
             .map { Int($0) }
             .map { colCells[$0] }
             .map { toMapSign($0, ofSign: sign) }
+            .joined()
         return test.contains(winString)
     }
     
@@ -296,6 +297,7 @@ private extension Board {
             .map { Int($0) }
             .map { cells[coordinate.row][$0] }
             .map { toMapSign($0, ofSign: sign) }
+            .joined()
         return test.contains(winString)
     }
     
@@ -319,6 +321,7 @@ private extension Board {
             .map { Int($0) }
             .map { cells[$0][$0] }
             .map { toMapSign($0, ofSign: sign) }
+            .joined()
         return test.contains(winString)
     }
     
@@ -347,6 +350,7 @@ private extension Board {
                 return cells[row][col]
             }
             .map { toMapSign($0, ofSign: sign) }
+            .joined()
         return test.contains(winString)
     }
 }

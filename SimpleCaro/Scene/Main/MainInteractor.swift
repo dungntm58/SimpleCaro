@@ -10,10 +10,10 @@ import CoreCleanSwiftBase
 
 class MainInteractor: CleanInteractor {
     
-    enum GameOptions {
-        case humanFirst
-        case botFirst
-        case manually
+    enum GameOptions: Int {
+        case humanFirst = 0
+        case botFirst = 1
+        case manually = 2
     }
     
     let presenter: MainPresenter
