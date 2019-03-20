@@ -15,6 +15,7 @@ class BoardCollectionView: BaseCleanCollectionView {
 
 extension BoardCollectionView: BoardView {
     func showGrid(size: Int) {
+        lastChangedModelIndex = nil
         let mainViewVC = viewController?.parent as? ListViewInteractive
         viewSource = BoardViewSource(sectionSize: size, listViewInteractive: mainViewVC)
         collectionViewLayout = BoardViewFlowLayout(cellSize: Constant.boardCellSize)

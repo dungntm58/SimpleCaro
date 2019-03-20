@@ -260,7 +260,7 @@ struct Board {
 private extension Board {
     func toMapSign(_ cell: Cell, ofSign sign: PlayerSign) -> String {
         guard let cSign = cell.sign else {
-            return " "
+            return "-"
         }
         if sign == cSign {
             return "0"
@@ -270,7 +270,6 @@ private extension Board {
     
     func checkWinVertical(of sign: PlayerSign, at coordinate: Coordinate) -> Bool {
         let row = coordinate.row
-        let colCells = cells[coordinate.column]
         let start = max(row - numberOfContinuousSign + 1, 0)
         let end = min(row + numberOfContinuousSign - 1, size - 1)
         if end - start + 1 < numberOfContinuousSign {
@@ -279,7 +278,7 @@ private extension Board {
         
         let test = (start...end)
             .map { Int($0) }
-            .map { colCells[$0] }
+            .map { cells[Int($0)][coordinate.column] }
             .map { toMapSign($0, ofSign: sign) }
             .joined()
         return test.contains(winString)
@@ -304,14 +303,15 @@ private extension Board {
     func checkWinCross(of sign: PlayerSign, at coordinate: Coordinate) -> Bool {
         let row = coordinate.row
         let col = coordinate.column
+        let sub = col - row
         
-        let startRow = max(row - numberOfContinuousSign + 1, 0)
+        let startRow = max(row - numberOfContinuousSign + 1, -sub)
         let endRow = min(row + numberOfContinuousSign - 1, size - 1)
-        let startCol = max(col - numberOfContinuousSign + 1, 0)
+        let startCol = max(col - numberOfContinuousSign + 1, -sub)
         let endCol = min(col + numberOfContinuousSign - 1, size - 1)
         
-        let start = min(startRow, startCol)
-        let end = max(endRow, endCol)
+        let start = max(startRow, startCol)
+        let end = min(endRow, endCol)
         
         if end - start + 1 < numberOfContinuousSign {
             return false
@@ -319,7 +319,11 @@ private extension Board {
         
         let test = (start...end)
             .map { Int($0) }
-            .map { cells[$0][$0] }
+            .map {
+                r -> Cell in
+                let c = r + sub
+                return cells[r][c]
+            }
             .map { toMapSign($0, ofSign: sign) }
             .joined()
         return test.contains(winString)
@@ -334,20 +338,20 @@ private extension Board {
         let startCol = max(col - numberOfContinuousSign + 1, 0)
         let endCol = min(col + numberOfContinuousSign - 1, size - 1)
         
-        let start = min(startRow, startCol)
-        let end = max(endRow, endCol)
+        let start = max(startRow, startCol)
+        let end = min(endRow, endCol)
         
         if end - start + 1 < numberOfContinuousSign {
             return false
         }
         
-        let sum = start + end
+        let sum = col + row
         let test = (start...end)
             .map { Int($0) }
             .map {
-                col -> Cell in
-                let row = sum - col
-                return cells[row][col]
+                r -> Cell in
+                let c = sum - r
+                return cells[r][c]
             }
             .map { toMapSign($0, ofSign: sign) }
             .joined()
