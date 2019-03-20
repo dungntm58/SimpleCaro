@@ -40,7 +40,8 @@ class BoardViewSource: BaseCleanCollectionViewSource {
     init(sectionSize: Int, listViewInteractive: ListViewInteractive?) {
         self.sectionSize = sectionSize
         let cell = DefaultCellModel(type: .nib(nibName: "Square", bundle: nil))
-        super.init(sections: Array(repeating: DefaultSectionModel(cells: [cell]), count: sectionSize), listViewInteractive: listViewInteractive , shouldAnimateLoading: false)
+        
+        super.init(sections: (0..<sectionSize).map { _ in DefaultSectionModel(cells: [ cell ]) }, listViewInteractive: listViewInteractive , shouldAnimateLoading: false)
     }
     
     override func bind(value: CleanListViewModel, to cell: UICollectionViewCell, at indexPath: IndexPath) {
