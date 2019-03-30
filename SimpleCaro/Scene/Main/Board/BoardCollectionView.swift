@@ -45,7 +45,7 @@ class BoardViewSource: BaseCleanCollectionViewSource {
         super.init(sections: (0..<sectionSize).map { _ in DefaultSectionModel(cells: [ cell ]) }, listViewInteractive: listViewInteractive , shouldAnimateLoading: false)
     }
     
-    override func bind(value: CleanListViewModel, to cell: UICollectionViewCell, at indexPath: IndexPath) {
+    override func bind(value: CleanViewModelItem, to cell: UICollectionViewCell, at indexPath: IndexPath) {
         let cell = cell as! Square
         let value = value as! BoardViewModel.Cell
         

@@ -8,6 +8,6 @@
 
 import CoreCleanSwiftBase
 
-protocol MainView: CleanView {
+protocol MainView: CleanDisplayable {
     func showGameOver(msg: String)
 }

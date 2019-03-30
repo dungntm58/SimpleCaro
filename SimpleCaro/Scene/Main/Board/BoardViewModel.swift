@@ -10,7 +10,7 @@ import CoreCleanSwiftBase
 import DifferenceKit
 
 struct BoardViewModel {
-    struct Cell: CleanListViewModel, Differentiable {
+    struct Cell: CleanViewModelItem, Differentiable {
         typealias DifferenceIdentifier = Int
         
         func isContentEqual(to source: BoardViewModel.Cell) -> Bool {

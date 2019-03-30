@@ -305,10 +305,10 @@ private extension Board {
         let col = coordinate.column
         let sub = col - row
         
-        let startRow = max(row - numberOfContinuousSign + 1, -sub)
-        let endRow = min(row + numberOfContinuousSign - 1, size - 1)
-        let startCol = max(col - numberOfContinuousSign + 1, -sub)
-        let endCol = min(col + numberOfContinuousSign - 1, size - 1)
+        let startRow = max(row - numberOfContinuousSign + 1, 0, -sub)
+        let endRow = min(row + numberOfContinuousSign - 1, size - 1, size - 1 - sub)
+        let startCol = max(col - numberOfContinuousSign + 1, 0, -sub)
+        let endCol = min(col + numberOfContinuousSign - 1, size - 1, size - 1 - sub)
         
         let start = max(startRow, startCol)
         let end = min(endRow, endCol)
@@ -332,20 +332,33 @@ private extension Board {
     func checkWinCross2(of sign: PlayerSign, at coordinate: Coordinate) -> Bool {
         let row = coordinate.row
         let col = coordinate.column
+        let sum = col + row
         
         let startRow = max(row - numberOfContinuousSign + 1, 0)
         let endRow = min(row + numberOfContinuousSign - 1, size - 1)
         let startCol = max(col - numberOfContinuousSign + 1, 0)
         let endCol = min(col + numberOfContinuousSign - 1, size - 1)
         
-        let start = max(startRow, startCol)
-        let end = min(endRow, endCol)
+        var start = max(startRow, startCol)
+        var end = min(endRow, endCol)
+        
+        if sum - start > size - 1 {
+            start = sum + 1 - size
+        }
+        else if sum < start {
+            start = sum
+        }
+        
+        if sum - end > size - 1 {
+            end = sum + 1 - size
+        } else if sum < end {
+            end = sum
+        }
         
         if end - start + 1 < numberOfContinuousSign {
             return false
         }
         
-        let sum = col + row
         let test = (start...end)
             .map { Int($0) }
             .map {
